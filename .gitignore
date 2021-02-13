@@ -1,3 +1,7 @@
+# waxc
+
+win32/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
