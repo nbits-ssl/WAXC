@@ -105,7 +105,8 @@ def dump(path, pkgname, config):
 		TagName = {'U': 'T', 'L': 'T', 'T': 'T'}
 
 	csvfile = open(path, encoding='utf-8')
-
+	print('Dump from: %s' % path)
+	
 	_d = {'c': 'WickedWhimsAnimationPackage', 'i': 'snippet', 'm': 'wickedwhims.sex.animations.animations_tuning'}
 	_d['n'] = pkgname
 	_d['s'] = str(waxc.fnv.fnv1_64(pkgname.encode().lower())) # FNV 64 decimal hash.
@@ -126,6 +127,11 @@ def dump(path, pkgname, config):
 		
 		for key, value in d.items():
 			if key is not None and value != '':
+				if key.endswith('_display_name'):
+					print('# %s' % value)
+				else:
+					print('  %s' % key)
+				
 				if key.endswith(ActorSuffix):
 					actkeys.append(key)
 				elif key.endswith(PropSuffix):

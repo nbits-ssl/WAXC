@@ -54,6 +54,7 @@ def generateHeaders():
 def parse(path, config):
 	_lists = []
 	
+	print('Parse from: %s' % path)
 	root = ET.parse(path).getroot()
 	pkgname = root.attrib.get('n')
 	
@@ -61,7 +62,11 @@ def parse(path, config):
 		d = dict()
 		for content in anim:
 			attname = content.attrib['n']
-
+			if attname.endswith('_display_name'):
+				print('# %s' % content.text)
+			else:
+				print('  %s' % attname)
+			
 			if attname == 'animation_actors_list':
 				actor_id = 0
 				for actor in content:

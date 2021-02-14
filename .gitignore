@@ -1,6 +1,9 @@
 # waxc
 
 win32/
+*.xml
+*.csv
+*.pkgname.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
