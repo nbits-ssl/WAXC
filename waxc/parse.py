@@ -1,4 +1,5 @@
 import sys
+import re
 import itertools
 import xml.etree.ElementTree as ET
 
@@ -47,6 +48,13 @@ def loopAppend(suffix, elm, key, addchar, dic):
 			id += 1
 
 def generateHeaders():
+	actlst = [[]  for x in range(10)]
+	for i in range(10):
+		resuffix = re.compile('\D_%d%s$' % (i, re.escape(ActorSuffix)))
+		actlst[i] = [x for x in SortedHeaders['actor'] if resuffix.search(x)]
+	
+	SortedHeaders['actor'] = list(itertools.chain(*actlst))
+	
 	lst = list(itertools.chain(*[SortedHeaders[key] for key in HeaderKeys]))
 	return sorted(set(lst), key=lst.index)
 
