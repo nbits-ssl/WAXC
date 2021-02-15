@@ -3,6 +3,7 @@ import py2exe
 
 option = {
     'dist_dir': 'win32',
+    'excludes': ['readline'],
 }
 
 setup(
