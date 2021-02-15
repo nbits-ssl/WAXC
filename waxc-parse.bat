@@ -1,5 +1,8 @@
 cd /d %~dp0
 cd win32
-waxc.exe parse %1
+
+for %%f in (%*) do (
+	waxc.exe parse %%f
+)
 
 pause

@@ -2,6 +2,7 @@
 WickedWhims Animation XML Converter 
 ====================================================================
 
+
 性別のBOTHを書き換えるためだけに使っていたWWAniXmlTweaksがPropを消し
 てしまうのに気づいて作成しました。
 
@@ -32,6 +33,7 @@ WickedWhims Animation XML Converter
 5. xmlをs4peなどで埋め込む
 
 ※ pythonの実行環境がある方は`python waxc.py -h`を見てください
+
 
 ### priority.txtとalternative.txtとalternative
 

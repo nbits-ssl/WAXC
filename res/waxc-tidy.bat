@@ -1,5 +1,8 @@
 cd /d %~dp0
 cd win32
-waxc.exe tidy %1
+
+for %%f in (%*) do (
+	waxc.exe tidy %%f
+)
 
 pause
