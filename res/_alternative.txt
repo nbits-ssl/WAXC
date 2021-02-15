@@ -1,0 +1,3 @@
+actor_id: AID
+animation_genders: 性別(主)
+animation_pref_gender: 性別(優先)

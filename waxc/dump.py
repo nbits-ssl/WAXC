@@ -98,8 +98,14 @@ def dontrunifGenerate(tree, parent, keys, datadic, effectid, suffix):
 			e = tree.SubElement(drientry, TagName['T'], {'n': _key})
 			e.text = datadic[key]
 
+def altConvert(s, alternative):
+	for key, value in alternative.items():
+		s = s.replace(key, value)
+	
+	return s
 
-def dump(path, pkgname, config):
+
+def dump(path, pkgname, config, alternative):
 	if config.get('TagName') == 'classic':
 		global TagName
 		TagName = {'U': 'T', 'L': 'T', 'T': 'T'}
@@ -116,6 +122,8 @@ def dump(path, pkgname, config):
 	wwanim.text = "1"
 
 	animlist = et.SubElement(root, 'L', {'n': 'animations_list'})  # this 'L' is always
+	
+	xalternative = {v: k for k, v in alternative.items()}
 
 	f = csv.DictReader(csvfile, delimiter = '\t')
 
@@ -127,6 +135,8 @@ def dump(path, pkgname, config):
 		
 		for key, value in d.items():
 			if key is not None and value != '':
+				key = altConvert(key, xalternative)
+				
 				if key.endswith('_display_name'):
 					print('# %s' % value)
 				else:
@@ -142,9 +152,10 @@ def dump(path, pkgname, config):
 					elm = et.SubElement(entry, TagName['T'], {'n': key})
 					elm.text = str(value)
 		
-		loopGenerate(et, entry, 'animation_actors_list', actkeys, d, 'actor_id', ActorSuffix)
-		loopGenerate(et, entry, 'animation_props_list', propkeys, d, 'prop_id', PropSuffix)
-		loopGenerate(et, entry, 'animation_events_list', eventkeys, d, 'event_type', EventSuffix)
+		_d = {altConvert(k, xalternative): v for k, v in d.items()}
+		loopGenerate(et, entry, 'animation_actors_list', actkeys, _d, 'actor_id', ActorSuffix)
+		loopGenerate(et, entry, 'animation_props_list', propkeys, _d, 'prop_id', PropSuffix)
+		loopGenerate(et, entry, 'animation_events_list', eventkeys, _d, 'event_type', EventSuffix)
 	
 	
 	s = et.tostring(root)

@@ -24,6 +24,7 @@ WickedWhims Animation XML Converter
 
 ## 使い方
 
+0. resフォルダにある_priority.txtと_alternative.txtの最初の「_」を消す
 1. s4peなどでpackageからxmlを取り出す
 2. xmlをwaxc-parse.batにドラッグアンドドロップ
 3. csvファイルを編集
@@ -31,6 +32,29 @@ WickedWhims Animation XML Converter
 5. xmlをs4peなどで埋め込む
 
 ※ pythonの実行環境がある方は`python waxc.py -h`を見てください
+
+### priority.txtとalternative.txtとalternative
+
+res/priority.txtにあるヘッダ要素はcsvの一番左側に配置されます。
+
+res/alternative.txtは「: 」で区切られたテーブルであり、parse時には
+左のWWの語句→右の独自語句、dump時にはその逆に文字列を変換します。
+
+alternative.txtの右の語句は、他の語句に出てこないユニークなものにして
+ください。
+
+正しい)
+
+  animation_genders: 性別(主)
+  animation_pref_gender: 性別(優先)
+
+誤り) 「性別」という文字列は下の「性別(優先)」の中にも出てくる
+
+  animation_genders: 性別
+  animation_pref_gender: 性別(優先)
+
+保存はutf-8でしてください。
+また、dont_run_ifまわりには効かないと思います。
 
 
 ## 注意事項

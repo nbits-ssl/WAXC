@@ -48,7 +48,6 @@ def loopAppend(suffix, elm, key, addchar, dic):
 			id += 1
 
 def generateHeaders(priority):
-	print(priority)
 	actlst = [[]  for x in range(10)]
 	for i in range(10):
 		resuffix = re.compile('\D_%d%s$' % (i, re.escape(ActorSuffix)))
@@ -114,11 +113,18 @@ def parse(path, config, priority, alternative):
 		
 		_lists.append(d)
 	
-	x = []
+	result = []
 	headers = generateHeaders(priority)
 	
-	x.append('\t'.join(headers))
 	for dic in _lists:
-		x.append('\t'.join([dic.get(header, getText(NoneString)) for header in headers]))
+		result.append('\t'.join([dic.get(header, getText(NoneString)) for header in headers]))
 	
-	return (pkgname, '\n'.join(x))
+	x = []
+	for head in headers:
+		for key, value in alternative.items():
+			head = head.replace(key, value)
+			
+		x.append(head)
+	
+	result.insert(0, '\t'.join(x))
+	return (pkgname, '\n'.join(result))

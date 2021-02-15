@@ -67,7 +67,7 @@ if (args.command == 'dump'):
 	with open(Path(args.filepath).with_suffix('.pkgname.txt')) as f:
 		pkgname = f.read()
 	
-	x = waxc.dump(args.filepath, pkgname, config)
+	x = waxc.dump(args.filepath, pkgname, config, alternative)
 	fp = Path(args.filepath).with_suffix('.xml')
 	write(fp, x)
 elif (args.command == 'parse'):
@@ -99,7 +99,7 @@ elif (args.command == 'test'):
 	write(csvfp, x, False)
 	
 	# dump
-	x = waxc.dump(csvfp, pkgname, config)
+	x = waxc.dump(csvfp, pkgname, config, alternative)
 	xmlfp = Path(TmpDir + '/' + fname)
 	write(xmlfp, x, False)
 	
