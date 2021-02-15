@@ -53,8 +53,8 @@ alternative.txtの右の語句は、他の語句に出てこないユニーク�
   animation_genders: 性別
   animation_pref_gender: 性別(優先)
 
-保存はutf-8でしてください。
-また、dont_run_ifまわりには効かないと思います。
+保存はutf-8でしてください。両方ともなくても動作します。
+同梱しているファイルはあくまでも動作サンプルです。
 
 
 ## 注意事項
