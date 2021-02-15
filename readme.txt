@@ -53,6 +53,9 @@ WickedWhims Animation XML Converter
   (actor_idの順番が途中から変更されるファイルなどは、diffを取るとひど
   いことに……)
   
+* csvのヘッダの文字列はxml生成用の制御文字が入っているところがあるので、
+  編集の際はお気を付けください。$***, _n, dont_run_if-など。
+  
 * actor_interactionsのところはxml生成時にソートしているので、順番がず
   れるかもしれません。
   
@@ -98,7 +101,7 @@ WickedWhims Animation XML Converter
 ## おまけ機能
 
 おまけというか開発に使っている機能ですがtidyとtestモードがあります。
-pythonが動かない環境で必要があったらdevフォルダからトップレベルフォルダ
+pythonが動かない環境で必要があったらresフォルダからwaxc.pyがあるフォルダ
 に移動して使ってください。
 
 ### tidy 
