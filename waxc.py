@@ -52,7 +52,7 @@ args = p.parse_args()
 scriptname = Path(sys.argv[0]).name
 if scriptname == 'waxc.exe':  # py2exe
 	for key, value in fpath.items():
-		fpath[key] = '../' + values
+		fpath[key] = '../' + value
 
 cfgpath = Path(fpath['config'])
 if not cfgpath.exists():
