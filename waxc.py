@@ -7,6 +7,12 @@ from pathlib import Path
 import waxc
 import waxc.cfg
 
+fpath = {
+	'config': 'waxc.ini',
+	'defaultconfig': 'res/waxc.ini.default',
+	'alternative': 'res/alternative.txt',
+	'priority': 'res/priority.txt',
+}
 
 def write(filepath, x, backup = True):
 	if filepath.exists() and backup:
@@ -24,9 +30,14 @@ args = p.parse_args()
 
 scriptname = Path(sys.argv[0]).name
 if scriptname == 'waxc.exe':  # py2exe
-	config = waxc.cfg.read('../waxc.ini')
-else:
-	config = waxc.cfg.read('waxc.ini')
+	for key, value in fpath.items():
+		fpath[key] = '../' + values
+
+cfgpath = Path(fpath['config'])
+if not cfgpath.exists():
+	shutil.copy(Path(fpath['defaultconfig']), cfgpath)
+
+config = waxc.cfg.read(cfgpath)
 
 if (args.command == 'dump'):
 	pkgname = ''
