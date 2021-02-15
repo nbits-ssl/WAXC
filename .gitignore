@@ -1,6 +1,10 @@
 # waxc
 
+waxc.ini
 win32/
+tmp/
+res/priority.txt
+res/alternative.txt
 *.xml
 *.csv
 *.pkgname.txt

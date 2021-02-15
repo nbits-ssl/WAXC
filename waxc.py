@@ -14,6 +14,27 @@ fpath = {
 	'priority': 'res/priority.txt',
 }
 
+def readpriority(filepath):
+	lst = []
+	
+	if filepath.exists():
+		with filepath.open('r', encoding='utf-8') as f:
+			lst = f.read().splitlines()
+	
+	return lst
+
+def readalternative(filepath):
+	table = {}
+	
+	if filepath.exists():
+		with filepath.open('r', encoding='utf-8') as f:
+			for line in f.read().splitlines():
+				if ': ' in line:
+					lst = line.split(': ')
+					table[lst[0]] = lst[1]
+	
+	return table
+
 def write(filepath, x, backup = True):
 	if filepath.exists() and backup:
 		backup_fp = filepath.with_suffix('.backup' + filepath.suffix)
@@ -38,6 +59,8 @@ if not cfgpath.exists():
 	shutil.copy(Path(fpath['defaultconfig']), cfgpath)
 
 config = waxc.cfg.read(cfgpath)
+priority = readpriority(Path(fpath['priority']))
+alternative = readalternative(Path(fpath['alternative']))
 
 if (args.command == 'dump'):
 	pkgname = ''
@@ -48,7 +71,7 @@ if (args.command == 'dump'):
 	fp = Path(args.filepath).with_suffix('.xml')
 	write(fp, x)
 elif (args.command == 'parse'):
-	pkgname, x = waxc.parse(args.filepath, config)
+	pkgname, x = waxc.parse(args.filepath, config, priority, alternative)
 	
 	fp = Path(args.filepath).with_suffix('.csv')
 	write(fp, x)
@@ -71,7 +94,7 @@ elif (args.command == 'test'):
 	write(tidyfp, x, False)  # tidy xml
 	
 	# parse
-	pkgname, x = waxc.parse(args.filepath, config)
+	pkgname, x = waxc.parse(args.filepath, config, priority, alternative)
 	csvfp = Path(TmpDir + '/' + fname).with_suffix('.csv')
 	write(csvfp, x, False)
 	

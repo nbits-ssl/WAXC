@@ -47,7 +47,8 @@ def loopAppend(suffix, elm, key, addchar, dic):
 		if key == 'event':  # increment for event list
 			id += 1
 
-def generateHeaders():
+def generateHeaders(priority):
+	print(priority)
 	actlst = [[]  for x in range(10)]
 	for i in range(10):
 		resuffix = re.compile('\D_%d%s$' % (i, re.escape(ActorSuffix)))
@@ -55,11 +56,20 @@ def generateHeaders():
 	
 	SortedHeaders['actor'] = list(itertools.chain(*actlst))
 	
-	lst = list(itertools.chain(*[SortedHeaders[key] for key in HeaderKeys]))
-	return sorted(set(lst), key=lst.index)
+	lst = list(itertools.chain(*[SortedHeaders[key] for key in HeaderKeys]))  # merge
+	lst = sorted(set(lst), key=lst.index)  # uniq
+	
+	prilst = []
+	for x in priority:
+		for head in lst:
+			if head.startswith(x):
+				lst.remove(head)
+				prilst.append(head)
+	
+	return prilst + lst
 
 
-def parse(path, config):
+def parse(path, config, priority, alternative):
 	_lists = []
 	
 	print('Parse from: %s' % path)
@@ -105,7 +115,7 @@ def parse(path, config):
 		_lists.append(d)
 	
 	x = []
-	headers = generateHeaders()
+	headers = generateHeaders(priority)
 	
 	x.append('\t'.join(headers))
 	for dic in _lists:
