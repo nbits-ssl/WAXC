@@ -35,7 +35,7 @@ WickedWhims Animation XML Converter
 ※ pythonの実行環境がある方は`python waxc.py -h`を見てください
 
 
-### priority.txtとalternative.txtとalternative
+### priority.txtとalternative.txt
 
 res/priority.txtにあるヘッダ要素はcsvの一番左側に配置されます。
 
